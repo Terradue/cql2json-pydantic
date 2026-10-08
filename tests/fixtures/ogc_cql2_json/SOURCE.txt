@@ -1,0 +1,24 @@
+OGC CQL2 1.0 JSON examples
+
+Repository: https://github.com/opengeospatial/ogcapi-features
+Tag: cql2-1.0.0
+Commit: 5788bf0dabd8fb4ffdeb4aefea547d308843aeb1
+Directory: cql2/standard/schema/examples/json
+Source: https://github.com/opengeospatial/ogcapi-features/tree/cql2-1.0.0/cql2/standard/schema/examples/json
+
+All 109 JSON files are unmodified copies from that directory. Their original
+filenames and contents are preserved; each file was checked against its upstream
+Git blob SHA during import. The upstream LICENSE is included alongside them.
+Tests do not access the network.
+
+Each fixture has an independent construction test in tests/test_ogc_examples.py.
+These use the public model constructors, including nested predicates, enums,
+geometries, temporal literals and functions. They compare both model_dump and
+model_dump_json with the fixture, then validate the fixture back into its model.
+Comparison ignores object-key order and insignificant JSON whitespace. JSON
+numbers compare by value (4 and 4.0 are equivalent); booleans are kept distinct
+from numbers. Optional unset geometry fields are omitted with exclude_none=True.
+
+When updating the corpus, use an explicit upstream revision, retain every JSON
+example, update the construction tests and this provenance record, and review
+upstream licensing changes.
