@@ -101,11 +101,16 @@ $defs:
     items:
       $ref: "#/$defs/scalarExpression"
   scalarExpression:
+    # Explicit alternatives preserve scalar types during root-model collapsing.
     oneOf:
-      - $ref: "#/$defs/characterExpression"
-      - $ref: "#/$defs/numericExpression"
+      - $ref: "#/$defs/casei"
+      - $ref: "#/$defs/accenti"
+      - type: string
+      - $ref: "#/$defs/arithmeticExpression"
+      - type: number
       - type: boolean
-      - $ref: "#/$defs/instantInstance"
+      - $ref: "#/$defs/dateInstant"
+      - $ref: "#/$defs/timestampInstant"
       - $ref: "#/$defs/functionRef"
       - $ref: "#/$defs/propertyRef"
   isLikePredicate:
@@ -319,20 +324,51 @@ $defs:
     maxItems: 2
     items:
       oneOf:
-        - $ref: "#/$defs/array"
+        - type: array
+          items:
+            $ref: "#/$defs/arrayItem"
         - $ref: "#/$defs/propertyRef"
         - $ref: "#/$defs/functionRef"
   array:
+    description: A recursive CQL2 array literal.
     type: array
+    # Keep a named recursive model when the generator collapses root models.
+    minItems: 0
     items:
-      oneOf:
-        - $ref: "#/$defs/characterExpression"
-        - $ref: "#/$defs/numericExpression"
-        - $dynamicRef: "#cql2expression"
-        - $ref: "#/$defs/spatialInstance"
-        - $ref: "#/$defs/temporalInstance"
-        - $ref: "#/$defs/array"
-        - $ref: "#/$defs/propertyRef"
+      $ref: "#/$defs/arrayItem"
+  arrayItem:
+    # Keep expression and literal alternatives explicit for recursive code generation.
+    oneOf:
+      - $ref: "#/$defs/casei"
+      - $ref: "#/$defs/accenti"
+      - type: string
+      - $ref: "#/$defs/arithmeticExpression"
+      - type: number
+      - $ref: "#/$defs/andOrExpression"
+      - $ref: "#/$defs/notExpression"
+      - $ref: "#/$defs/binaryComparisonPredicate"
+      - $ref: "#/$defs/isLikePredicate"
+      - $ref: "#/$defs/isBetweenPredicate"
+      - $ref: "#/$defs/isInListPredicate"
+      - $ref: "#/$defs/isNullPredicate"
+      - $ref: "#/$defs/spatialPredicate"
+      - $ref: "#/$defs/temporalPredicate"
+      - $ref: "#/$defs/arrayPredicate"
+      - $ref: "#/$defs/functionRef"
+      - type: boolean
+      - $ref: "#/$defs/point"
+      - $ref: "#/$defs/linestring"
+      - $ref: "#/$defs/polygon"
+      - $ref: "#/$defs/multipoint"
+      - $ref: "#/$defs/multilinestring"
+      - $ref: "#/$defs/multipolygon"
+      - $ref: "#/$defs/geometrycollection"
+      - $ref: "#/$defs/bboxLiteral"
+      - $ref: "#/$defs/dateInstant"
+      - $ref: "#/$defs/timestampInstant"
+      - $ref: "#/$defs/intervalInstance"
+      - $ref: "#/$defs/array"
+      - $ref: "#/$defs/propertyRef"
   arithmeticExpressionOp:
     type: string
     x-enum-varnames:
@@ -487,7 +523,9 @@ $defs:
             - $dynamicRef: "#cql2expression"
             - $ref: "#/$defs/spatialInstance"
             - $ref: "#/$defs/temporalInstance"
-            - $ref: "#/$defs/array"
+            - type: array
+              items:
+                $ref: "#/$defs/arrayItem"
             - $ref: "#/$defs/propertyRef"
   spatialInstance:
     oneOf:

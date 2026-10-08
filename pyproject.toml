@@ -316,6 +316,8 @@ test = [
 
 # Preserve the project license when regenerating the schema-derived models.
 [tool.datamodel-codegen]
+# Recursive RootModel bases are evaluated at runtime and need Union for forward references.
+use-union-operator = false
 custom-file-header-mode = "prepend"
 custom-file-header = """
 # Copyright 2026 Terradue
