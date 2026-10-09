@@ -22,3 +22,4 @@ Available guides:
 
 - [Install](install.md)
 - [Build a filter](build-filter.md)
+- [Build geometries](build-geometries.md)

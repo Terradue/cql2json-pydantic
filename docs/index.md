@@ -51,3 +51,19 @@ Use `model_dump_json(indent=2, exclude_none=True)` for formatted JSON, or
 `model_dump(mode="json", exclude_none=True)` for a JSON-compatible Python dictionary.
 
 See [more filter examples and their JSON output](how-to/build-filter.md).
+
+For spatial filters, construct a geometry directly from coordinates:
+
+```python
+import cql2json_pydantic as cql
+
+point = cql.Point((-115.81, 37.24))
+print(point.model_dump_json(exclude_none=True))
+```
+
+```json
+{"type":"Point","coordinates":[-115.81,37.24]}
+```
+
+See [Build geometries](how-to/build-geometries.md) for all seven geometry types,
+coordinate nesting, and validation.

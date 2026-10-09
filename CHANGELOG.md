@@ -23,22 +23,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-### Changed
-
-- Renamed the distribution to `cql2json-pydantic` and the Python package to
-  `cql2json_pydantic`. Update imports to use the new package name.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
+## [0.2.0] - 2026-10-09
 
 ### Added
+
+- Positional coordinates for all seven GeoJSON geometry models, supporting raw
+  lists and tuples while retaining keyword construction and Pydantic validation.
 
 ## [0.1.0] - 2026-01-01
 
@@ -46,5 +36,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial project release.
 
-[Unreleased]: https://github.com/Terradue/cql2json-pydantic/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/Terradue/cql2json-pydantic/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/Terradue/cql2json-pydantic/compare/0.1.0...0.2.0
 [0.1.0]: https://github.com/Terradue/cql2json-pydantic/releases/tag/0.1.0

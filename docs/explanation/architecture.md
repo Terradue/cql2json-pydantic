@@ -25,3 +25,13 @@ docs/
 ```
 
 The project uses Hatch for packaging, testing environments, and build orchestration. Documentation is organized according to Diátaxis so that learning, task completion, lookup, and conceptual understanding remain separated.
+
+`schemas/cql2json.yaml` is the authoritative contract. Regenerate models with
+`task generate_models`, which calls Terradue's shared `json:create_models` task
+and applies the project's Ruff fixes and formatting through Hatch.
+
+`templates/pydantic_v2/BaseModel.jinja2` extends the generator's Pydantic v2
+template with positional constructors for the seven GeoJSON geometry models.
+Constructor inputs accept raw sequences and existing generated coordinate models;
+all fields and validation constraints still come from the unchanged schema.
+Maintain constructor behavior in this template rather than editing generated Python.

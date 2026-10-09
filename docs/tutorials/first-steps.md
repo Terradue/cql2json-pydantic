@@ -59,3 +59,6 @@ use `query.model_dump(mode="json", exclude_none=True)`.
 Explore [more filter examples and their JSON output](../how-to/build-filter.md),
 including logical combinations, list membership, spatial predicates, time intervals,
 and arithmetic expressions.
+
+For spatial filters, follow [Build geometries](../how-to/build-geometries.md)
+to construct points, lines, and polygons directly from coordinate lists or tuples.

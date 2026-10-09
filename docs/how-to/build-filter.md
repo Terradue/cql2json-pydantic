@@ -218,7 +218,9 @@ Output:
 
 ## Intersect a point
 
-Select geometries that intersect a GeoJSON point. Coordinates are supplied in longitude, latitude order. `Point` supplies its `type` value automatically; `exclude_none=True` omits its unset optional `bbox`.
+Select geometries that intersect a GeoJSON point. Pass coordinates directly as a
+tuple or list in longitude, latitude order. `Point` supplies its `type` value
+automatically; `exclude_none=True` omits its unset optional `bbox`.
 
 ```python
 import cql2json_pydantic as cql
@@ -227,7 +229,7 @@ query = cql.SpatialPredicate(
     op=cql.SpatialPredicateOp.S_INTERSECTS,
     args=[
         cql.PropertyRef(property="geometry"),
-        cql.Point(coordinates=[-79.38, 43.65]),
+        cql.Point((-79.38, 43.65)),
     ],
 )
 print(query.model_dump_json(indent=2, exclude_none=True))
@@ -252,6 +254,10 @@ Output:
   ]
 }
 ```
+
+For lines, polygons, multi-geometries, and collections, see
+[Build geometries](build-geometries.md). Keyword construction such as
+`cql.Point(coordinates=[-79.38, 43.65])` is also supported.
 
 ## Filter within a bounding box
 
