@@ -41,7 +41,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "pydantic>=2,<3"
+  "pydantic>=2.13.5,<3"
 ]
 
 # ---------------------------------------------------------------------------
