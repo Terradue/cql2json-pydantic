@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://terradue.github.io/cql2json-pydantic/how-to/build-filter/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Build a filter - CQL2 JSON Pydantic</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Build a filter";
+        var mkdocs_page_input_path = "how-to/build-filter.md";
+        var mkdocs_page_url = "/cql2json-pydantic/how-to/build-filter/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> CQL2 JSON Pydantic
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Tutorials</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../tutorials/first-steps/">First steps</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">How-to guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../install/">Install</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Build a filter</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#choose-a-serialization-method">Choose a serialization method</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#compare-a-property-with-a-value">Compare a property with a value</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#combine-filters-with-and-or-and-not">Combine filters with AND, OR, and NOT</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#match-a-value-from-a-list">Match a value from a list</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#match-a-text-pattern">Match a text pattern</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#intersect-a-point">Intersect a point</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#filter-within-a-bounding-box">Filter within a bounding box</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#filter-by-a-time-interval">Filter by a time interval</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#use-an-open-interval">Use an open interval</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nest-arithmetic-expressions-and-functions">Nest arithmetic expressions and functions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#send-a-json-compatible-dictionary">Send a JSON-compatible dictionary</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#read-a-filter-back-into-a-model">Read a filter back into a model</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../build-geometries/">Build geometries</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../reference/api/">API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Explanation</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../explanation/architecture/">Architecture</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">CQL2 JSON Pydantic</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">How-to guides</li>
+      <li class="breadcrumb-item active">Build a filter</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/Terradue/cql2json-pydantic/edit/main/docs/how-to/build-filter.md">Edit on cql2json-pydantic</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <!--
+Copyright 2026 Terradue
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h1 id="build-and-render-filters">Build and render filters<a class="headerlink" href="#build-and-render-filters" title="Permanent link">&para;</a></h1>
+<p>The examples below are independent: copy any Python block to construct a filter
+and print the JSON shown immediately after it. Import models from
+<code>cql2json_pydantic</code>; the shorter <code>cql</code> alias keeps nested expressions readable.</p>
+<p>The models construct and serialize CQL2 JSON expressions. A service that supports
+the operators and properties in your filter evaluates them.</p>
+<h2 id="choose-a-serialization-method">Choose a serialization method<a class="headerlink" href="#choose-a-serialization-method" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>query.model_dump_json(exclude_none=True)</code> returns a compact JSON <strong>string</strong>.</li>
+<li><code>query.model_dump_json(indent=2, exclude_none=True)</code> returns a formatted JSON
+  <strong>string</strong>, as shown below.</li>
+<li><code>query.model_dump(mode="json", exclude_none=True)</code> returns a Python <strong>dictionary</strong>
+  containing JSON-compatible values, suitable for an HTTP client's <code>json=</code> parameter.</li>
+</ul>
+<p>Use <code>mode="json"</code> when producing a dictionary so enums and tuples are converted to
+JSON-compatible values. Use <code>exclude_none=True</code> to omit unset optional fields,
+such as a geometry's <code>bbox</code>. Avoid <code>exclude_defaults=True</code> or <code>exclude_unset=True</code>
+for these examples: they can omit required <code>op</code> or geometry <code>type</code> values that the
+models supply by default.</p>
+<p>JSON number formatting can differ from the constructor input: for example, the
+numeric operand <code>20</code> may serialize as <code>20.0</code>. Both represent the same JSON number.</p>
+<h2 id="compare-a-property-with-a-value">Compare a property with a value<a class="headerlink" href="#compare-a-property-with-a-value" title="Permanent link">&para;</a></h2>
+<p>Select features whose <code>city</code> property equals <code>Toronto</code>. A <code>PropertyRef</code> identifies a feature property; a plain string is a literal value.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicateOp</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"city"</span><span class="p">),</span> <span class="s2">"Toronto"</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"Toronto"</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="combine-filters-with-and-or-and-not">Combine filters with AND, OR, and NOT<a class="headerlink" href="#combine-filters-with-and-or-and-not" title="Permanent link">&para;</a></h2>
+<p>Select features in Toronto or Ottawa with cloud cover below 20, excluding features whose geometry is null. Each nested expression is another model instance.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">AndOrExpression</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">AndOrExpressionOp</span><span class="o">.</span><span class="n">AND</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">AndOrExpression</span><span class="p">(</span>
+            <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">AndOrExpressionOp</span><span class="o">.</span><span class="n">OR</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="p">(</span>
+                    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicateOp</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"city"</span><span class="p">),</span> <span class="s2">"Toronto"</span><span class="p">],</span>
+                <span class="p">),</span>
+                <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="p">(</span>
+                    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicateOp</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"city"</span><span class="p">),</span> <span class="s2">"Ottawa"</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="p">(</span>
+            <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicateOp</span><span class="o">.</span><span class="n">LESS_THAN</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"cloud_cover"</span><span class="p">),</span> <span class="mi">20</span><span class="p">],</span>
+        <span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">NotExpression</span><span class="p">(</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">IsNullPredicate</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"geometry"</span><span class="p">)])],</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"and"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"or"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city"</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s2">"Toronto"</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city"</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="s2">"Ottawa"</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cloud_cover"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="mf">20.0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"isNull"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geometry"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="match-a-value-from-a-list">Match a value from a list<a class="headerlink" href="#match-a-value-from-a-list" title="Permanent link">&para;</a></h2>
+<p>Select features whose <code>city</code> is one of three names. The <code>in</code> operands are a tuple: first the value to compare, then the list of allowed values. The tuple serializes as a JSON array.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">IsInListPredicate</span><span class="p">(</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"city"</span><span class="p">),</span> <span class="p">[</span><span class="s2">"Toronto"</span><span class="p">,</span> <span class="s2">"Ottawa"</span><span class="p">,</span> <span class="s2">"Montreal"</span><span class="p">]),</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"in"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"Toronto"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"Ottawa"</span><span class="p">,</span>
+<span class="w">      </span><span class="s2">"Montreal"</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="match-a-text-pattern">Match a text pattern<a class="headerlink" href="#match-a-text-pattern" title="Permanent link">&para;</a></h2>
+<p>Match names against <code>Smith%</code>. The fixed <code>like</code> operator is supplied by the model, so it does not need an explicit <code>op</code> argument.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">IsLikePredicate</span><span class="p">(</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"name"</span><span class="p">),</span> <span class="s2">"Smith%"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"like"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"Smith%"</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="intersect-a-point">Intersect a point<a class="headerlink" href="#intersect-a-point" title="Permanent link">&para;</a></h2>
+<p>Select geometries that intersect a GeoJSON point. Pass coordinates directly as a
+tuple or list in longitude, latitude order. <code>Point</code> supplies its <code>type</code> value
+automatically; <code>exclude_none=True</code> omits its unset optional <code>bbox</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">SpatialPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">SpatialPredicateOp</span><span class="o">.</span><span class="n">S_INTERSECTS</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"geometry"</span><span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">Point</span><span class="p">((</span><span class="o">-</span><span class="mf">79.38</span><span class="p">,</span> <span class="mf">43.65</span><span class="p">)),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s_intersects"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geometry"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Point"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">-79.38</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">43.65</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>For lines, polygons, multi-geometries, and collections, see
+<a href="../build-geometries/">Build geometries</a>. Keyword construction such as
+<code>cql.Point(coordinates=[-79.38, 43.65])</code> is also supported.</p>
+<h2 id="filter-within-a-bounding-box">Filter within a bounding box<a class="headerlink" href="#filter-within-a-bounding-box" title="Permanent link">&para;</a></h2>
+<p>Select geometries within a bounding box, using <code>[west, south, east, north]</code> coordinates.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">SpatialPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">SpatialPredicateOp</span><span class="o">.</span><span class="n">S_WITHIN</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"geometry"</span><span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">BboxLiteral</span><span class="p">(</span><span class="n">bbox</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">79.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">]),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s_within"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"geometry"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"bbox"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="mf">-80.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">43.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">-79.0</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">44.0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="filter-by-a-time-interval">Filter by a time interval<a class="headerlink" href="#filter-by-a-time-interval" title="Permanent link">&para;</a></h2>
+<p>Select observations during a bounded interval. <code>TimestampString</code> wraps each UTC timestamp and serializes directly to a string inside the interval array.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">TemporalPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">TemporalPredicateOp</span><span class="o">.</span><span class="n">T_DURING</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"observed_at"</span><span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">IntervalInstance</span><span class="p">(</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">cql</span><span class="o">.</span><span class="n">TimestampString</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">"2025-01-01T00:00:00Z"</span><span class="p">),</span>
+                <span class="n">cql</span><span class="o">.</span><span class="n">TimestampString</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">"2025-02-01T00:00:00Z"</span><span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t_during"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"observed_at"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">"2025-01-01T00:00:00Z"</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"2025-02-01T00:00:00Z"</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="use-an-open-interval">Use an open interval<a class="headerlink" href="#use-an-open-interval" title="Permanent link">&para;</a></h2>
+<p>Use the literal <code>".."</code> for an unbounded endpoint. This example selects events whose time intersects an interval with no start bound.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">TemporalPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">TemporalPredicateOp</span><span class="o">.</span><span class="n">T_INTERSECTS</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"event_time"</span><span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">IntervalInstance</span><span class="p">(</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="s2">".."</span><span class="p">,</span> <span class="n">cql</span><span class="o">.</span><span class="n">TimestampString</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">"2025-02-01T00:00:00Z"</span><span class="p">)],</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"t_intersects"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"event_time"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">".."</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">"2025-02-01T00:00:00Z"</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="nest-arithmetic-expressions-and-functions">Nest arithmetic expressions and functions<a class="headerlink" href="#nest-arithmetic-expressions-and-functions" title="Permanent link">&para;</a></h2>
+<p>Compare a property with the result of adding 10 to a function call. <code>FunctionRef</code> represents a function supported by the receiving service; the models build the expression without evaluating it.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicateOp</span><span class="o">.</span><span class="n">GREATER_THAN</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"height"</span><span class="p">),</span>
+        <span class="n">cql</span><span class="o">.</span><span class="n">ArithmeticExpression</span><span class="p">(</span>
+            <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">ArithmeticExpressionOp</span><span class="o">.</span><span class="n">ADD</span><span class="p">,</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">cql</span><span class="o">.</span><span class="n">FunctionRef</span><span class="p">(</span>
+                    <span class="n">op</span><span class="o">=</span><span class="s2">"average"</span><span class="p">,</span>
+                    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"nearby_heights"</span><span class="p">)],</span>
+                <span class="p">),</span>
+                <span class="mi">10</span><span class="p">,</span>
+            <span class="p">],</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&gt;"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"height"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"average"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"nearby_heights"</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">          </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="mf">10.0</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="send-a-json-compatible-dictionary">Send a JSON-compatible dictionary<a class="headerlink" href="#send-a-json-compatible-dictionary" title="Permanent link">&para;</a></h2>
+<p>Use the dictionary form when another library handles JSON encoding for you:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="p">(</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicateOp</span><span class="o">.</span><span class="n">EQUAL</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">cql</span><span class="o">.</span><span class="n">PropertyRef</span><span class="p">(</span><span class="nb">property</span><span class="o">=</span><span class="s2">"city"</span><span class="p">),</span> <span class="s2">"Toronto"</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">model_dump</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"json"</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"Toronto"</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>For an HTTP client with a <code>json=</code> parameter, pass <code>payload</code> to that parameter.
+Passing the result of <code>model_dump_json()</code> to <code>json=</code> would encode the JSON string
+again instead of sending a filter object. The receiving API determines where the
+filter belongs in its request.</p>
+<h2 id="read-a-filter-back-into-a-model">Read a filter back into a model<a class="headerlink" href="#read-a-filter-back-into-a-model" title="Permanent link">&para;</a></h2>
+<p>When you know the filter's model type, validate a JSON string with
+<code>model_validate_json()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">cql2json_pydantic</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cql</span>
+
+<span class="n">encoded</span> <span class="o">=</span> <span class="s1">'{"op":"=","args":[{"property":"city"},"Toronto"]}'</span>
+<span class="n">query</span> <span class="o">=</span> <span class="n">cql</span><span class="o">.</span><span class="n">BinaryComparisonPredicate</span><span class="o">.</span><span class="n">model_validate_json</span><span class="p">(</span><span class="n">encoded</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">model_dump_json</span><span class="p">(</span><span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exclude_none</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</code></pre></div>
+<p>Output:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"op"</span><span class="p">:</span><span class="w"> </span><span class="s2">"="</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"property"</span><span class="p">:</span><span class="w"> </span><span class="s2">"city"</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="s2">"Toronto"</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Use <code>model_validate(payload)</code> for an existing dictionary. Validation uses the
+selected model's field definitions and raises <code>pydantic.ValidationError</code> for
+inputs that do not satisfy them.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../install/" class="btn btn-neutral float-left" title="Install"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../build-geometries/" class="btn btn-neutral float-right" title="Build geometries">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/Terradue/cql2json-pydantic" class="fa fa-code-fork" style="color: #fcfcfc"> cql2json-pydantic</a>
+        </span>
+    
+    
+      <span><a href="../install/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../build-geometries/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
