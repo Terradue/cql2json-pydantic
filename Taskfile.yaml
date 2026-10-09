@@ -26,6 +26,11 @@ tasks:
       vars:
         SCHEMA: './schemas/cql2json.yaml'
         OUTPUT: './src/cql2json_pydantic/models.py'
+        CUSTOM_TEMPLATE_DIR: './templates'
+        ADDITIONAL_IMPORTS: 'pydantic.BaseModel,collections.abc.Sequence,pydantic_core.PydanticUndefined,pydantic_core.PydanticUndefinedType'
+    # Sequence is used only in the custom constructor annotations.
+    - hatch run dev:ruff check --select TC003 --fix --unsafe-fixes src/cql2json_pydantic/models.py
+    - hatch run dev:fix src/cql2json_pydantic/models.py
 
   default:
     cmds:

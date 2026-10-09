@@ -14,4 +14,4 @@
 
 """Package metadata for CQL2 JSON Pydantic."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

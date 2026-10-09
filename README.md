@@ -50,6 +50,25 @@ Use `model_dump_json(indent=2, exclude_none=True)` for formatted JSON, or
 
 See [more filter examples and their JSON output](docs/how-to/build-filter.md).
 
+GeoJSON models accept coordinates directly as lists or tuples:
+
+```python
+import cql2json_pydantic as cql
+
+point = cql.Point((-115.81, 37.24))
+line = cql.Linestring(((0, 0), (1, 1)))
+polygon = cql.Polygon([[(0, 0), (1, 0), (1, 1), (0, 0)]])
+points = cql.Multipoint(((0, 0), (1, 1)))
+lines = cql.Multilinestring([[(0, 0), (1, 1)]])
+polygons = cql.Multipolygon([[[(0, 0), (1, 0), (1, 1), (0, 0)]]])
+collection = cql.Geometrycollection((point, line))
+```
+
+Keyword construction such as `cql.Point(coordinates=[-115.81, 37.24])` remains
+supported, as do existing coordinate wrapper models. Additional fields are keyword
+arguments, for example `cql.Point((0, 0), bbox=[-1, -1, 1, 1])`.
+These remain Pydantic models with the same validation and serialization methods.
+
 ## Project conventions
 
 This project is templated a Hatch-based Python package with:
