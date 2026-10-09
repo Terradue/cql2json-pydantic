@@ -540,6 +540,11 @@ $defs:
       - $ref: "#/$defs/multilinestring"
       - $ref: "#/$defs/multipolygon"
       - $ref: "#/$defs/geometrycollection"
+  pointCoordinates:
+    type: array
+    minItems: 2
+    items:
+      type: number
   point:
     title: GeoJSON Point
     type: object
@@ -551,15 +556,20 @@ $defs:
         type: string
         const: Point
       coordinates:
-        type: array
-        minItems: 2
-        items:
-          type: number
+        $ref: "#/$defs/pointCoordinates"
       bbox:
         type: array
         minItems: 4
         items:
           type: number
+  linestringCoordinates:
+    type: array
+    minItems: 2
+    items:
+      type: array
+      minItems: 2
+      items:
+        type: number
   linestring:
     title: GeoJSON LineString
     type: object
@@ -571,16 +581,20 @@ $defs:
         type: string
         const: LineString
       coordinates:
-        type: array
-        minItems: 2
-        items:
-          type: array
-          minItems: 2
-          items:
-            type: number
+        $ref: "#/$defs/linestringCoordinates"
       bbox:
         type: array
         minItems: 4
+        items:
+          type: number
+  polygonCoordinates:
+    type: array
+    items:
+      type: array
+      minItems: 4
+      items:
+        type: array
+        minItems: 2
         items:
           type: number
   polygon:
@@ -594,20 +608,19 @@ $defs:
         type: string
         const: Polygon
       coordinates:
-        type: array
-        items:
-          type: array
-          minItems: 4
-          items:
-            type: array
-            minItems: 2
-            items:
-              type: number
+        $ref: "#/$defs/polygonCoordinates"
       bbox:
         type: array
         minItems: 4
         items:
           type: number
+  multipointCoordinates:
+    type: array
+    items:
+      type: array
+      minItems: 2
+      items:
+        type: number
   multipoint:
     title: GeoJSON MultiPoint
     type: object
@@ -619,15 +632,20 @@ $defs:
         type: string
         const: MultiPoint
       coordinates:
-        type: array
-        items:
-          type: array
-          minItems: 2
-          items:
-            type: number
+        $ref: "#/$defs/multipointCoordinates"
       bbox:
         type: array
         minItems: 4
+        items:
+          type: number
+  multilinestringCoordinates:
+    type: array
+    items:
+      type: array
+      minItems: 2
+      items:
+        type: array
+        minItems: 2
         items:
           type: number
   multilinestring:
@@ -641,20 +659,24 @@ $defs:
         type: string
         const: MultiLineString
       coordinates:
-        type: array
-        items:
-          type: array
-          minItems: 2
-          items:
-            type: array
-            minItems: 2
-            items:
-              type: number
+        $ref: "#/$defs/multilinestringCoordinates"
       bbox:
         type: array
         minItems: 4
         items:
           type: number
+  multipolygonCoordinates:
+    type: array
+    items:
+      type: array
+      items:
+        type: array
+        minItems: 4
+        items:
+          type: array
+          minItems: 2
+          items:
+            type: number
   multipolygon:
     title: GeoJSON MultiPolygon
     type: object
@@ -666,17 +688,7 @@ $defs:
         type: string
         const: MultiPolygon
       coordinates:
-        type: array
-        items:
-          type: array
-          items:
-            type: array
-            minItems: 4
-            items:
-              type: array
-              minItems: 2
-              items:
-                type: number
+        $ref: "#/$defs/multipolygonCoordinates"
       bbox:
         type: array
         minItems: 4

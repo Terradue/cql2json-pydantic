@@ -181,26 +181,26 @@ def test_build_clause7_10() -> None:
             cql.PropertyRef(property="road"),
             cql.Polygon(
                 coordinates=[
-                    cql.Coordinate1(
+                    cql.PolygonCoordinate(
                         root=[
-                            cql.Coordinate1Item(root=[43.7286, -79.2986]),
-                            cql.Coordinate1Item(root=[43.7311, -79.2996]),
-                            cql.Coordinate1Item(root=[43.7323, -79.2972]),
-                            cql.Coordinate1Item(root=[43.7326, -79.2971]),
-                            cql.Coordinate1Item(root=[43.735, -79.2981]),
-                            cql.Coordinate1Item(root=[43.735, -79.2982]),
-                            cql.Coordinate1Item(root=[43.7352, -79.2982]),
-                            cql.Coordinate1Item(root=[43.7357, -79.2956]),
-                            cql.Coordinate1Item(root=[43.7337, -79.2948]),
-                            cql.Coordinate1Item(root=[43.7343, -79.2933]),
-                            cql.Coordinate1Item(root=[43.7339, -79.2923]),
-                            cql.Coordinate1Item(root=[43.7327, -79.2947]),
-                            cql.Coordinate1Item(root=[43.732, -79.2942]),
-                            cql.Coordinate1Item(root=[43.7322, -79.2937]),
-                            cql.Coordinate1Item(root=[43.7306, -79.293]),
-                            cql.Coordinate1Item(root=[43.7303, -79.293]),
-                            cql.Coordinate1Item(root=[43.7299, -79.2928]),
-                            cql.Coordinate1Item(root=[43.7286, -79.2986]),
+                            cql.PolygonCoordinateItem(root=[43.7286, -79.2986]),
+                            cql.PolygonCoordinateItem(root=[43.7311, -79.2996]),
+                            cql.PolygonCoordinateItem(root=[43.7323, -79.2972]),
+                            cql.PolygonCoordinateItem(root=[43.7326, -79.2971]),
+                            cql.PolygonCoordinateItem(root=[43.735, -79.2981]),
+                            cql.PolygonCoordinateItem(root=[43.735, -79.2982]),
+                            cql.PolygonCoordinateItem(root=[43.7352, -79.2982]),
+                            cql.PolygonCoordinateItem(root=[43.7357, -79.2956]),
+                            cql.PolygonCoordinateItem(root=[43.7337, -79.2948]),
+                            cql.PolygonCoordinateItem(root=[43.7343, -79.2933]),
+                            cql.PolygonCoordinateItem(root=[43.7339, -79.2923]),
+                            cql.PolygonCoordinateItem(root=[43.7327, -79.2947]),
+                            cql.PolygonCoordinateItem(root=[43.732, -79.2942]),
+                            cql.PolygonCoordinateItem(root=[43.7322, -79.2937]),
+                            cql.PolygonCoordinateItem(root=[43.7306, -79.293]),
+                            cql.PolygonCoordinateItem(root=[43.7303, -79.293]),
+                            cql.PolygonCoordinateItem(root=[43.7299, -79.2928]),
+                            cql.PolygonCoordinateItem(root=[43.7286, -79.2986]),
                         ]
                     )
                 ]
@@ -261,39 +261,39 @@ def test_build_clause7_16() -> None:
         args=[
             cql.Linestring(
                 coordinates=[
-                    cql.Coordinate(root=[43.72992, -79.2998]),
-                    cql.Coordinate(root=[43.73005, -79.2991]),
-                    cql.Coordinate(root=[43.73006, -79.2984]),
-                    cql.Coordinate(root=[43.7314, -79.2956]),
-                    cql.Coordinate(root=[43.73259, -79.295]),
-                    cql.Coordinate(root=[43.73266, -79.2945]),
-                    cql.Coordinate(root=[43.7332, -79.2936]),
-                    cql.Coordinate(root=[43.73378, -79.2936]),
-                    cql.Coordinate(root=[43.73486, -79.2917]),
+                    cql.LinestringCoordinate(root=[43.72992, -79.2998]),
+                    cql.LinestringCoordinate(root=[43.73005, -79.2991]),
+                    cql.LinestringCoordinate(root=[43.73006, -79.2984]),
+                    cql.LinestringCoordinate(root=[43.7314, -79.2956]),
+                    cql.LinestringCoordinate(root=[43.73259, -79.295]),
+                    cql.LinestringCoordinate(root=[43.73266, -79.2945]),
+                    cql.LinestringCoordinate(root=[43.7332, -79.2936]),
+                    cql.LinestringCoordinate(root=[43.73378, -79.2936]),
+                    cql.LinestringCoordinate(root=[43.73486, -79.2917]),
                 ]
             ),
             cql.Polygon(
                 coordinates=[
-                    cql.Coordinate1(
+                    cql.PolygonCoordinate(
                         root=[
-                            cql.Coordinate1Item(root=[43.7286, -79.2986]),
-                            cql.Coordinate1Item(root=[43.7311, -79.2996]),
-                            cql.Coordinate1Item(root=[43.7323, -79.2972]),
-                            cql.Coordinate1Item(root=[43.7326, -79.2971]),
-                            cql.Coordinate1Item(root=[43.735, -79.2981]),
-                            cql.Coordinate1Item(root=[43.735, -79.2982]),
-                            cql.Coordinate1Item(root=[43.7352, -79.2982]),
-                            cql.Coordinate1Item(root=[43.7357, -79.2956]),
-                            cql.Coordinate1Item(root=[43.7337, -79.2948]),
-                            cql.Coordinate1Item(root=[43.7343, -79.2933]),
-                            cql.Coordinate1Item(root=[43.7339, -79.2923]),
-                            cql.Coordinate1Item(root=[43.7327, -79.2947]),
-                            cql.Coordinate1Item(root=[43.732, -79.2942]),
-                            cql.Coordinate1Item(root=[43.7322, -79.2937]),
-                            cql.Coordinate1Item(root=[43.7306, -79.293]),
-                            cql.Coordinate1Item(root=[43.7303, -79.293]),
-                            cql.Coordinate1Item(root=[43.7299, -79.2928]),
-                            cql.Coordinate1Item(root=[43.7286, -79.2986]),
+                            cql.PolygonCoordinateItem(root=[43.7286, -79.2986]),
+                            cql.PolygonCoordinateItem(root=[43.7311, -79.2996]),
+                            cql.PolygonCoordinateItem(root=[43.7323, -79.2972]),
+                            cql.PolygonCoordinateItem(root=[43.7326, -79.2971]),
+                            cql.PolygonCoordinateItem(root=[43.735, -79.2981]),
+                            cql.PolygonCoordinateItem(root=[43.735, -79.2982]),
+                            cql.PolygonCoordinateItem(root=[43.7352, -79.2982]),
+                            cql.PolygonCoordinateItem(root=[43.7357, -79.2956]),
+                            cql.PolygonCoordinateItem(root=[43.7337, -79.2948]),
+                            cql.PolygonCoordinateItem(root=[43.7343, -79.2933]),
+                            cql.PolygonCoordinateItem(root=[43.7339, -79.2923]),
+                            cql.PolygonCoordinateItem(root=[43.7327, -79.2947]),
+                            cql.PolygonCoordinateItem(root=[43.732, -79.2942]),
+                            cql.PolygonCoordinateItem(root=[43.7322, -79.2937]),
+                            cql.PolygonCoordinateItem(root=[43.7306, -79.293]),
+                            cql.PolygonCoordinateItem(root=[43.7303, -79.293]),
+                            cql.PolygonCoordinateItem(root=[43.7299, -79.2928]),
+                            cql.PolygonCoordinateItem(root=[43.7286, -79.2986]),
                         ]
                     )
                 ]
@@ -468,19 +468,19 @@ def test_build_example07() -> None:
                     cql.PropertyRef(property="footprint"),
                     cql.Polygon(
                         coordinates=[
-                            cql.Coordinate1(
+                            cql.PolygonCoordinate(
                                 root=[
-                                    cql.Coordinate1Item(root=[43.5845, -79.5442]),
-                                    cql.Coordinate1Item(root=[43.6079, -79.4893]),
-                                    cql.Coordinate1Item(root=[43.5677, -79.4632]),
-                                    cql.Coordinate1Item(root=[43.6129, -79.3925]),
-                                    cql.Coordinate1Item(root=[43.6223, -79.3238]),
-                                    cql.Coordinate1Item(root=[43.6576, -79.3163]),
-                                    cql.Coordinate1Item(root=[43.7945, -79.1178]),
-                                    cql.Coordinate1Item(root=[43.8144, -79.1542]),
-                                    cql.Coordinate1Item(root=[43.8555, -79.1714]),
-                                    cql.Coordinate1Item(root=[43.7509, -79.639]),
-                                    cql.Coordinate1Item(root=[43.5845, -79.5442]),
+                                    cql.PolygonCoordinateItem(root=[43.5845, -79.5442]),
+                                    cql.PolygonCoordinateItem(root=[43.6079, -79.4893]),
+                                    cql.PolygonCoordinateItem(root=[43.5677, -79.4632]),
+                                    cql.PolygonCoordinateItem(root=[43.6129, -79.3925]),
+                                    cql.PolygonCoordinateItem(root=[43.6223, -79.3238]),
+                                    cql.PolygonCoordinateItem(root=[43.6576, -79.3163]),
+                                    cql.PolygonCoordinateItem(root=[43.7945, -79.1178]),
+                                    cql.PolygonCoordinateItem(root=[43.8144, -79.1542]),
+                                    cql.PolygonCoordinateItem(root=[43.8555, -79.1714]),
+                                    cql.PolygonCoordinateItem(root=[43.7509, -79.639]),
+                                    cql.PolygonCoordinateItem(root=[43.5845, -79.5442]),
                                 ]
                             )
                         ]
@@ -514,16 +514,16 @@ def test_build_example08() -> None:
                     cql.PropertyRef(property="footprint"),
                     cql.Polygon(
                         coordinates=[
-                            cql.Coordinate1(
+                            cql.PolygonCoordinate(
                                 root=[
-                                    cql.Coordinate1Item(root=[-77.117938, 38.93686]),
-                                    cql.Coordinate1Item(root=[-77.040604, 39.995648]),
-                                    cql.Coordinate1Item(root=[-76.910536, 38.892912]),
-                                    cql.Coordinate1Item(root=[-77.039359, 38.791753]),
-                                    cql.Coordinate1Item(root=[-77.047906, 38.841462]),
-                                    cql.Coordinate1Item(root=[-77.034183, 38.840655]),
-                                    cql.Coordinate1Item(root=[-77.033142, 38.85749]),
-                                    cql.Coordinate1Item(root=[-77.117938, 38.93686]),
+                                    cql.PolygonCoordinateItem(root=[-77.117938, 38.93686]),
+                                    cql.PolygonCoordinateItem(root=[-77.040604, 39.995648]),
+                                    cql.PolygonCoordinateItem(root=[-76.910536, 38.892912]),
+                                    cql.PolygonCoordinateItem(root=[-77.039359, 38.791753]),
+                                    cql.PolygonCoordinateItem(root=[-77.047906, 38.841462]),
+                                    cql.PolygonCoordinateItem(root=[-77.034183, 38.840655]),
+                                    cql.PolygonCoordinateItem(root=[-77.033142, 38.85749]),
+                                    cql.PolygonCoordinateItem(root=[-77.117938, 38.93686]),
                                 ]
                             )
                         ]
@@ -736,12 +736,12 @@ def test_build_example24() -> None:
             cql.PropertyRef(property="geometry"),
             cql.Polygon(
                 coordinates=[
-                    cql.Coordinate1(
+                    cql.PolygonCoordinate(
                         root=[
-                            cql.Coordinate1Item(root=[-10, -10]),
-                            cql.Coordinate1Item(root=[10, -10]),
-                            cql.Coordinate1Item(root=[10, 10]),
-                            cql.Coordinate1Item(root=[-10, -10]),
+                            cql.PolygonCoordinateItem(root=[-10, -10]),
+                            cql.PolygonCoordinateItem(root=[10, -10]),
+                            cql.PolygonCoordinateItem(root=[10, 10]),
+                            cql.PolygonCoordinateItem(root=[-10, -10]),
                         ]
                     )
                 ]
@@ -941,15 +941,15 @@ def test_build_example46() -> None:
         args=[
             cql.Polygon(
                 coordinates=[
-                    cql.Coordinate1(
+                    cql.PolygonCoordinate(
                         root=[
-                            cql.Coordinate1Item(root=[-0.333333, 89.0]),
-                            cql.Coordinate1Item(root=[-102.723546, -0.5]),
-                            cql.Coordinate1Item(root=[-179.0, -89.0]),
-                            cql.Coordinate1Item(root=[-1.9, 89.0]),
-                            cql.Coordinate1Item(root=[-0.0, 89.0]),
-                            cql.Coordinate1Item(root=[2.00001, -1.9]),
-                            cql.Coordinate1Item(root=[-0.333333, 89.0]),
+                            cql.PolygonCoordinateItem(root=[-0.333333, 89.0]),
+                            cql.PolygonCoordinateItem(root=[-102.723546, -0.5]),
+                            cql.PolygonCoordinateItem(root=[-179.0, -89.0]),
+                            cql.PolygonCoordinateItem(root=[-1.9, 89.0]),
+                            cql.PolygonCoordinateItem(root=[-0.0, 89.0]),
+                            cql.PolygonCoordinateItem(root=[2.00001, -1.9]),
+                            cql.PolygonCoordinateItem(root=[-0.333333, 89.0]),
                         ]
                     )
                 ]
@@ -968,12 +968,12 @@ def test_build_example47() -> None:
             cql.Multipolygon(
                 coordinates=[
                     [
-                        cql.Coordinate4(
+                        cql.MultipolygonCoordinate(
                             root=[
-                                cql.Coordinate4Item(root=[144.022387, 45.176126]),
-                                cql.Coordinate4Item(root=[-1.1, 0.0]),
-                                cql.Coordinate4Item(root=[180.0, 47.808086]),
-                                cql.Coordinate4Item(root=[144.022387, 45.176126]),
+                                cql.MultipolygonCoordinateItem(root=[144.022387, 45.176126]),
+                                cql.MultipolygonCoordinateItem(root=[-1.1, 0.0]),
+                                cql.MultipolygonCoordinateItem(root=[180.0, 47.808086]),
+                                cql.MultipolygonCoordinateItem(root=[144.022387, 45.176126]),
                             ]
                         )
                     ]
@@ -991,19 +991,19 @@ def test_build_example48() -> None:
             cql.PropertyRef(property="geometry"),
             cql.Multilinestring(
                 coordinates=[
-                    cql.Coordinate3(
+                    cql.MultilinestringCoordinate(
                         root=[
-                            cql.Coordinate3Item(root=[-1.9, -0.99999]),
-                            cql.Coordinate3Item(root=[75.292574, 1.5]),
-                            cql.Coordinate3Item(root=[-0.5, -4.016458]),
-                            cql.Coordinate3Item(root=[-31.708594, -74.743801]),
-                            cql.Coordinate3Item(root=[179.0, -90.0]),
+                            cql.MultilinestringCoordinateItem(root=[-1.9, -0.99999]),
+                            cql.MultilinestringCoordinateItem(root=[75.292574, 1.5]),
+                            cql.MultilinestringCoordinateItem(root=[-0.5, -4.016458]),
+                            cql.MultilinestringCoordinateItem(root=[-31.708594, -74.743801]),
+                            cql.MultilinestringCoordinateItem(root=[179.0, -90.0]),
                         ]
                     ),
-                    cql.Coordinate3(
+                    cql.MultilinestringCoordinate(
                         root=[
-                            cql.Coordinate3Item(root=[-1.9, -1.1]),
-                            cql.Coordinate3Item(root=[1.5, 8.547371]),
+                            cql.MultilinestringCoordinateItem(root=[-1.9, -1.1]),
+                            cql.MultilinestringCoordinateItem(root=[1.5, 8.547371]),
                         ]
                     ),
                 ]
@@ -1019,20 +1019,20 @@ def test_build_example49() -> None:
         args=[
             cql.Polygon(
                 coordinates=[
-                    cql.Coordinate1(
+                    cql.PolygonCoordinate(
                         root=[
-                            cql.Coordinate1Item(root=[-49.88024, 0.5, -75993.341684]),
-                            cql.Coordinate1Item(root=[-1.5, -0.99999, -100000.0]),
-                            cql.Coordinate1Item(root=[0.0, 0.5, -0.333333]),
-                            cql.Coordinate1Item(root=[-49.88024, 0.5, -75993.341684]),
+                            cql.PolygonCoordinateItem(root=[-49.88024, 0.5, -75993.341684]),
+                            cql.PolygonCoordinateItem(root=[-1.5, -0.99999, -100000.0]),
+                            cql.PolygonCoordinateItem(root=[0.0, 0.5, -0.333333]),
+                            cql.PolygonCoordinateItem(root=[-49.88024, 0.5, -75993.341684]),
                         ]
                     ),
-                    cql.Coordinate1(
+                    cql.PolygonCoordinate(
                         root=[
-                            cql.Coordinate1Item(root=[-65.887123, 2.00001, -100000.0]),
-                            cql.Coordinate1Item(root=[0.333333, -53.017711, -79471.332949]),
-                            cql.Coordinate1Item(root=[180.0, 0.0, 1852.616704]),
-                            cql.Coordinate1Item(root=[-65.887123, 2.00001, -100000.0]),
+                            cql.PolygonCoordinateItem(root=[-65.887123, 2.00001, -100000.0]),
+                            cql.PolygonCoordinateItem(root=[0.333333, -53.017711, -79471.332949]),
+                            cql.PolygonCoordinateItem(root=[180.0, 0.0, 1852.616704]),
+                            cql.PolygonCoordinateItem(root=[-65.887123, 2.00001, -100000.0]),
                         ]
                     ),
                 ]
@@ -1061,14 +1061,14 @@ def test_build_example51() -> None:
             cql.PropertyRef(property="geometry"),
             cql.Linestring(
                 coordinates=[
-                    cql.Coordinate(root=[172.03086, 1.5]),
-                    cql.Coordinate(root=[1.1, -90.0]),
-                    cql.Coordinate(root=[-159.757695, 0.99999]),
-                    cql.Coordinate(root=[-180.0, 0.5]),
-                    cql.Coordinate(root=[-12.111235, 81.336403]),
-                    cql.Coordinate(root=[-0.5, 64.43958]),
-                    cql.Coordinate(root=[0.0, 81.991815]),
-                    cql.Coordinate(root=[-155.93831, 90.0]),
+                    cql.LinestringCoordinate(root=[172.03086, 1.5]),
+                    cql.LinestringCoordinate(root=[1.1, -90.0]),
+                    cql.LinestringCoordinate(root=[-159.757695, 0.99999]),
+                    cql.LinestringCoordinate(root=[-180.0, 0.5]),
+                    cql.LinestringCoordinate(root=[-12.111235, 81.336403]),
+                    cql.LinestringCoordinate(root=[-0.5, 64.43958]),
+                    cql.LinestringCoordinate(root=[0.0, 81.991815]),
+                    cql.LinestringCoordinate(root=[-155.93831, 90.0]),
                 ]
             ),
         ],
@@ -1528,11 +1528,11 @@ def test_build_example83() -> None:
         args=[
             cql.Multipoint(
                 coordinates=[
-                    cql.Coordinate2(root=[180.0, -0.5]),
-                    cql.Coordinate2(root=[179.0, -47.121701]),
-                    cql.Coordinate2(root=[180.0, -0.0]),
-                    cql.Coordinate2(root=[33.470475, -0.99999]),
-                    cql.Coordinate2(root=[179.0, -15.333062]),
+                    cql.MultipointCoordinate(root=[180.0, -0.5]),
+                    cql.MultipointCoordinate(root=[179.0, -47.121701]),
+                    cql.MultipointCoordinate(root=[180.0, -0.0]),
+                    cql.MultipointCoordinate(root=[33.470475, -0.99999]),
+                    cql.MultipointCoordinate(root=[179.0, -15.333062]),
                 ]
             ),
             cql.PropertyRef(property="geometry"),
@@ -1551,14 +1551,14 @@ def test_build_example84() -> None:
                     cql.Point(coordinates=[0.0, -2.00001]),
                     cql.Multilinestring(
                         coordinates=[
-                            cql.Coordinate3(
+                            cql.MultilinestringCoordinate(
                                 root=[
-                                    cql.Coordinate3Item(root=[-2.00001, -0.0]),
-                                    cql.Coordinate3Item(root=[-77.292642, -0.5]),
-                                    cql.Coordinate3Item(root=[-87.515626, -0.0]),
-                                    cql.Coordinate3Item(root=[-180.0, 12.502773]),
-                                    cql.Coordinate3Item(root=[21.204842, -1.5]),
-                                    cql.Coordinate3Item(root=[-21.878857, -90.0]),
+                                    cql.MultilinestringCoordinateItem(root=[-2.00001, -0.0]),
+                                    cql.MultilinestringCoordinateItem(root=[-77.292642, -0.5]),
+                                    cql.MultilinestringCoordinateItem(root=[-87.515626, -0.0]),
+                                    cql.MultilinestringCoordinateItem(root=[-180.0, 12.502773]),
+                                    cql.MultilinestringCoordinateItem(root=[21.204842, -1.5]),
+                                    cql.MultilinestringCoordinateItem(root=[-21.878857, -90.0]),
                                 ]
                             )
                         ]
@@ -1566,9 +1566,9 @@ def test_build_example84() -> None:
                     cql.Point(coordinates=[1.9, 0.5]),
                     cql.Linestring(
                         coordinates=[
-                            cql.Coordinate(root=[179.0, 1.179148]),
-                            cql.Coordinate(root=[-148.192487, -65.007816]),
-                            cql.Coordinate(root=[0.5, 0.333333]),
+                            cql.LinestringCoordinate(root=[179.0, 1.179148]),
+                            cql.LinestringCoordinate(root=[-148.192487, -65.007816]),
+                            cql.LinestringCoordinate(root=[0.5, 0.333333]),
                         ]
                     ),
                 ]
